@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Vue Component Registration</title>
+  </head>
+  <body>
+    <div id="app">
+      <h3>첫 번째 인스턴스 영역</h3>
+      <my-global-component></my-global-component>
+      <my-local-component></my-local-component>
+      {{ message }}
+    </div>
+    <hr>
+    <div id="app2">
+      <h3>두 번째 인스턴스 영역</h3>
+      <my-global-component></my-global-component>
+      <my-local-component></my-local-component>
+      {{ message }}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      // 전역 컴포넌트
+      Vue.component('my-global-component', {
+        template: '<div>전역 컴포넌트가 등록되었습니다!</div>'
+      });
+
+      // 지역 컴포넌트
+      var cmp = {
+        template: '<div>지역 컴포넌트가 등록되었습니다!</div>'
+      };
+
+      new Vue({
+        el: '#app',
+        // 지역 컴포넌트 등록
+        components: {
+          'my-local-component': cmp
+        },
+        data: {
+          message: 'Hello Vue.js!'
+        },
+        beforeCreate: function() {
+          console.log("beforeCreate");
+        },
+        created: function() {
+          console.log("created");
+        },
+        mounted: function() {
+          console.log("mounted");
+          this.message = '자기야 내일봐용!! 사랑해!!! 알려뷰!!!'
+        },
+        updated: function() {
+          console.log("updated");
+        }
+      });
+      new Vue({
+        el: '#app2'
+      })
+    </script>
+  </body>
+</html>
